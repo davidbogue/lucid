@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>David Bogue's Blog</title>
+
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href='http://fonts.googleapis.com/css?family=Marcellus' rel='stylesheet' type='text/css'>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/customization.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1>This is the title to an interesting blog post</h1>
+        <div class="padding-left-small">
+          <img src="/images/monkey.jpg" width="25px" class="img-circle"> David Bogue 
+
+        </div>
+      </div>
+
+      <div class="row padding-top-small">
+        <div class="col-md-10 padding-left-large">
+          <p>
+            “All successful people operate by principles that help them be successful. Without principles, you would be forced to react to circumstances that come at you without considering what you value most and how to make choices to get what you want. This would prevent you from making the most of your life.” - Ray Dalio
+          </p>
+          <p>
+            When I was younger, I was bad at math. Growing up in this Age of Economics with folks equating “smart” with “rational” often made me feel insecure...
+          </p>
+          <pre>
+package main
+
+import "fmt"
+
+type Vertex struct {
+    X, Y int
+}
+
+var (
+    p = Vertex{1, 2}  // has type Vertex
+    q = &Vertex{1, 2} // has type *Vertex
+    r = Vertex{X: 1}  // Y:0 is implicit
+    s = Vertex{}      // X:0 and Y:0
+)
+
+func main() {
+    fmt.Println(p, q, r, s)
+}
+          </pre>
+          <p>
+            “All successful people operate by principles that help them be successful. Without principles, you would be forced to react to circumstances that come at you without considering what you value most and how to make choices to get what you want. This would prevent you from making the most of your life.” - Ray Dalio
+          </p>
+          <p>
+            When I was younger, I was bad at math. Growing up in this Age of Economics with folks equating “smart” with “rational” often made me feel insecure...
+          </p>
+        </div>
+      </div>
+
+      <div class="row padding-top-large">
+        <hr>
+        <div class="col-md-10 text-right"> 
+          <button type="button" class="btn btn-primary">
+            Next <span class="glyphicon glyphicon-chevron-right"></span>
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /.container -->
+
+    <footer>
+      <div class="container">
+        © 2014
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

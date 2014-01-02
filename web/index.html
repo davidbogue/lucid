@@ -1,0 +1,59 @@
+{{template "header"}}
+
+    <div class="container">
+
+      <div class="page-header">
+        <div class="media">
+          <a class="pull-left" href="#">
+            <img src="/images/monkey.jpg" width="100px" class="img-circle">
+          </a>
+          <div class="media-body padding-top-sm padding-left-large">
+            <h1 class="media-heading">{{.Profile.Name}}</h1>
+            <p>
+              {{.Profile.TagLine}}
+
+            </p>
+            <div class="padding-left-small">
+              <i class="fa fa-linkedin"></i> 
+              <i class="fa fa-github margin-left-small"></i> 
+              <i class="fa fa-twitter margin-left-small"></i>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      {{range $entry := .Entries}}
+        <div class="row padding-top-large">
+          <div class="col-md-2"> </div>
+          <div class="col-md-8">
+            <h3>{{$entry.Title}}</h3>
+          </div>
+        </div>
+
+        <div class="row padding-top-small">
+          <div class="col-md-2"> </div>
+          <div class="col-md-8">
+            {{$entry.Body}}
+            <button type="button" class="btn btn-default margin-top-med">
+              Continue Reading
+            </button>
+            <p><hr></p>
+          </div>
+        </div>
+                
+      {{end}}
+      
+      <div class="row padding-top-large">
+        <div class="col-md-2"> </div>
+        <div class="col-md-8 text-right">
+          <button type="button" class="btn btn-primary">
+            Next <span class="glyphicon glyphicon-chevron-right"></span>
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /.container -->
+
+{{template "footer"}}
