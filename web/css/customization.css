@@ -3,7 +3,7 @@ body {
   padding-left: 30px;
   font-size: 16px;
   line-height: 1.7;
-  font-family: 'Marcellus', serif;
+  font-family: 'Lato';
   color: #666666;
 }
 
@@ -19,8 +19,8 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: 'Marcellus', serif;
-  font-weight: 600;
+  font-family: 'Lato';
+  font-weight: 900;
   line-height: 1.1;
   color: #333333;
 }
@@ -53,6 +53,10 @@ footer{
 	font-family: sans-serif;
 }
 
+.padding-even-small{padding: 5px}
+.padding-even-med{padding: 10px}
+.padding-even-large{padding: 20px}
+
 .padding-top-small{ padding-top: 5px; }
 .padding-top-med{ padding-top: 10px; }
 .padding-top-large{ padding-top: 20px; }
@@ -68,3 +72,18 @@ footer{
 .margin-left-small{ margin-left: 5px; }
 .margin-left-med{ margin-left: 10px; }
 .margin-left-large{ margin-left: 20px; }
+
+.login-div{
+  width: 300px;
+  margin: 0 auto;
+  padding-bottom: 300px;
+}
+
+.dark-background{
+  background: #cccccc;
+  color: white;
+}
+
+.dark-background a{
+  color: white;
+}

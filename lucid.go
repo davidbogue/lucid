@@ -9,6 +9,8 @@ func main() {
 	http.HandleFunc("/", controllers.HomePageHandler)
 	http.HandleFunc("/editprofile/", controllers.EditProfileHandler)
 	http.HandleFunc("/saveprofile/", controllers.SaveProfileHandler)
+	http.HandleFunc("/login/", controllers.LoginPageHandler)
+	http.HandleFunc("/loginform/", controllers.LoginFormHandler)
 
 	// static files
 	http.Handle("/web/", http.StripPrefix("/web/", http.FileServer(http.Dir("./web/"))))

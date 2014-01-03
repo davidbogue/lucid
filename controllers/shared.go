@@ -9,6 +9,7 @@ var templates = template.Must(template.ParseFiles(
 	"./web/header.html",
 	"./web/footer.html",
 	"./web/index.html",
+	"./web/login.html",
 	"./web/profile.html"))
 
 func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
