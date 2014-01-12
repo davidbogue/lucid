@@ -15,11 +15,11 @@
             <form role="form" action="/saveprofile/" method="POST" parsley-validate>
             <div class="form-group">
               <label for="Name">Name *</label>
-              <input type="text" class="form-control" id="Name" name="Name" placeholder="" required>
+              <input type="text" class="form-control" id="Name" name="Name" placeholder="" value="{{.Name}}" required>
             </div>
             <div class="form-group">
               <label for="Email">Email address *</label>
-              <input type="email" class="form-control" id="Email" name="Email" placeholder="" required>
+              <input type="email" class="form-control" id="Email" name="Email" placeholder="" value="{{.Email}}" required>
             </div>
             <div class="form-group">
               <label for="Password">Password *</label>
@@ -32,23 +32,23 @@
             </div> -->
             <div class="form-group">
               <label for="TagLine">Blog Tag Line</label>
-              <input type="text" class="form-control" id="TagLine" name="TagLine" placeholder="">
+              <input type="text" class="form-control" id="TagLine" name="TagLine" placeholder="" value="{{.TagLine}}">
             </div>
             <div class="form-group">
               <label for="GitHub">GitHub URL</label>
-              <input type="url" class="form-control" id="GitHub" name="GitHub" placeholder="">
+              <input type="url" class="form-control" id="GitHub" name="GitHub" placeholder="" value="{{.GitHub}}">
             </div>
             <div class="form-group">
               <label for="LinkedIn">LinkedIn URL</label>
-              <input type="url" class="form-control" id="LinkedIn" name="LinkedIn" placeholder="">
+              <input type="url" class="form-control" id="LinkedIn" name="LinkedIn" placeholder="" value="{{.LinkedIn}}">
             </div>
             <div class="form-group">
               <label for="Twitter">Twitter URL</label>
-              <input type="url" class="form-control" id="Twitter" name="Twitter" placeholder="">
+              <input type="url" class="form-control" id="Twitter" name="Twitter" placeholder="" value="{{.Twitter}}">
             </div>
             <div class="form-group">
               <label for="Facebook">Facebook URL</label>
-              <input type="url" class="form-control" id="Facebook" name="Facebook" placeholder="">
+              <input type="url" class="form-control" id="Facebook" name="Facebook" placeholder="" value="{{.Facebook}}">
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
           </form>

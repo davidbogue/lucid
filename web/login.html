@@ -6,11 +6,15 @@
     <div class="page-header">
       <h2>Login</h2>
     </div>
-
+{{if .}}
+  <div class="alert alert-danger">
+    {{.}}
+  </div>
+{{end}}
     <div class="row padding-top-large">
       <div class="col-sm-12">
         <p>
-          <form role="form" action="/login/" method="POST" parsley-validate>
+          <form role="form" action="/loginform/" method="POST" parsley-validate>
             <div class="form-group">
               <label for="Email">Email address *</label>
               <input type="email" class="form-control" id="Email" name="Email" placeholder="" required>

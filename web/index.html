@@ -1,4 +1,12 @@
 {{template "header"}}
+  <div class="pull-right dark-background margin-top-large">
+    {{if .LoggedIn}}
+      <a href="/logout"><i class="fa fa-sign-out padding-even-med"></i></a>
+    {{else}}
+      <a href="/login"><i class="fa fa-user padding-even-med"></i></a>
+    {{end}}
+    
+  </div>
 
     <div class="container">
 
@@ -8,15 +16,34 @@
             <img src="/images/monkey.jpg" width="100px" class="img-circle">
           </a>
           <div class="media-body padding-top-sm padding-left-large">
-            <h1 class="media-heading">{{.Profile.Name}}</h1>
+            <h1 class="media-heading">
+              {{.Profile.Name}}
+              {{if .LoggedIn}}
+                <a href="/editprofile"> <span class="badge">edit profile</span> </a>
+              {{end}}
+            </h1>
             <p>
               {{.Profile.TagLine}}
 
             </p>
             <div class="padding-left-small">
-              <i class="fa fa-linkedin"></i> 
-              <i class="fa fa-github margin-left-small"></i> 
-              <i class="fa fa-twitter margin-left-small"></i>
+              {{if .Profile.GitHub}}
+                <a href="{{.Profile.GitHub}}"><i class="fa fa-github"></i> </a>
+              {{end}}
+
+              {{if .Profile.LinkedIn}}
+                <a href="{{.Profile.LinkedIn}}"><i class="fa fa-linkedin"></i> </a>
+              {{end}}
+
+              {{if .Profile.Twitter}}
+                <a href="{{.Profile.Twitter}}"><i class="fa fa-twitter"></i> </a>
+              {{end}}
+              
+              {{if .Profile.Facebook}}
+                <a href="{{.Profile.Facebook}}"><i class="fa fa-facebook"></i> </a>
+              {{end}}
+
+              
             </div>
 
           </div>

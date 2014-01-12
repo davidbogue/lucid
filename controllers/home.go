@@ -2,13 +2,14 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
+	"github.com/davidbogue/lucid/models"
 	"github.com/gorilla/schema"
-	"github.com/russross/blackfriday"
-	"html/template"
+	"github.com/gorilla/sessions"
 	"io/ioutil"
 	"net/http"
 )
+
+var SessionStore = sessions.NewCookieStore([]byte("d8e2f09c-6e37-44a8-a3ec-7a5608b54383"))
 
 func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 	p, err := loadProfile()
@@ -16,7 +17,7 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/editprofile/", http.StatusFound)
 		return
 	}
-	homePage := &HomePage{Profile: p, Entries: loadEntries()}
+	homePage := &models.HomePage{Profile: p, Entries: loadEntries(), LoggedIn: isLoggedIn(r)}
 	renderTemplate(w, "index", homePage)
 }
 
@@ -32,7 +33,7 @@ func SaveProfileHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	profile := new(Profile)
+	profile := new(models.Profile)
 
 	decoder := schema.NewDecoder()
 	err = decoder.Decode(profile, r.PostForm)
@@ -41,17 +42,13 @@ func SaveProfileHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Printf("form value name is %v \n", r.FormValue("Name"))
-	fmt.Printf("post form is %v \n", r.PostForm)
-
 	// validate profile and return errors to edit screen here
+	profile.Password = getMD5HashWithSalt(profile.Password)
 	b, err := json.Marshal(profile)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
 	}
-
-	fmt.Printf("profile is %+v \n", profile)
 
 	err = ioutil.WriteFile("./data/profile.json", b, 0600)
 	if err != nil {
@@ -61,13 +58,13 @@ func SaveProfileHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 
-func loadProfile() (*Profile, error) {
+func loadProfile() (*models.Profile, error) {
 	filename := "./data/profile.json"
 	data, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err
 	}
-	profile := new(Profile)
+	profile := new(models.Profile)
 
 	err = json.Unmarshal(data, profile)
 	if err != nil {
@@ -75,17 +72,4 @@ func loadProfile() (*Profile, error) {
 	}
 
 	return profile, nil
-}
-
-func loadEntries() []Entry {
-	entries := make([]Entry, 4)
-	testBody := "test \n##h2 \n markdown test"
-	output := blackfriday.MarkdownBasic([]byte(testBody))
-	fmt.Printf(string(output))
-
-	entries[0] = Entry{ID: "10", Title: "This is a blog post", Body: template.HTML(output)}
-	entries[1] = Entry{ID: "10", Title: "This is a blog post", Body: template.HTML(output)}
-	entries[2] = Entry{ID: "10", Title: "This is a blog post", Body: template.HTML(output)}
-	entries[3] = Entry{ID: "10", Title: "This is a blog post", Body: template.HTML(output)}
-	return entries
 }

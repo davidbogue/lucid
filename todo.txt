@@ -1,16 +1,3 @@
 TODO:
 
-Create New Profile Template
-	- Name
-	- Tag Line
-	- Image
-	- email
-	- password
-	- linked in url
-	- github url
-	- twitter url
-	- facebook url
-In homepage handler if no profile exists then redirect to profile handler
-	- Edit Profile Screen
-	- if profile exists make sure user is logged in .. if not the redirect to login page
 

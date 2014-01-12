@@ -5,6 +5,8 @@ import (
 	"net/http"
 )
 
+var sessionName = "lucid-session"
+
 var templates = template.Must(template.ParseFiles(
 	"./web/header.html",
 	"./web/footer.html",
@@ -25,4 +27,12 @@ func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+func isLoggedIn(r *http.Request) bool {
+	session, _ := SessionStore.Get(r, sessionName)
+	if session.Values["logged-in"] != nil {
+		return session.Values["logged-in"].(bool)
+	}
+	return false
 }
