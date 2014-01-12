@@ -22,7 +22,13 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func EditProfileHandler(w http.ResponseWriter, r *http.Request) {
-	p, _ := loadProfile()
+	p, err := loadProfile()
+	if err == nil { // the profile exists so we need to make sure the user is logged in.
+		if !isLoggedIn(r) { // if not logged in then redirect to home page
+			http.Redirect(w, r, "/", http.StatusFound)
+			return
+		}
+	}
 	renderTemplate(w, "profile", p)
 }
 

@@ -25,7 +25,7 @@ h6,
   color: #333333;
 }
 
-p { margin: 0 0 5px; }
+.media-heading { margin: 0 0 10px; }
 
 @media (min-width: 768px) { .container {  width: 750px; } }
 @media (min-width: 992px) { .container {  width: 850px;  } }
