@@ -1,3 +1,7 @@
 TODO:
 
-
+New Entry Form
+Edit Entry
+Get Entries Logic
+Next Button Logic
+Reset Password

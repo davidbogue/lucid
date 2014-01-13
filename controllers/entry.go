@@ -1,14 +1,58 @@
 package controllers
 
 import (
+	"encoding/json"
 	"github.com/davidbogue/lucid/models"
 	"github.com/russross/blackfriday"
 	"html/template"
+	"io/ioutil"
 	"net/http"
 )
 
 func EntryHandler(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "index", nil)
+	entryId := r.URL.Path[len("/entry/"):]
+	e, err := loadEntry(entryId)
+	if err != nil {
+		http.Redirect(w, r, "/", http.StatusFound)
+	} else {
+		renderTemplate(w, "entry", e)
+	}
+}
+
+func EditEntryHandler(w http.ResponseWriter, r *http.Request) {
+	if !isLoggedIn(r) {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
+	entryId := r.URL.Path[len("/entry/"):]
+	if entryId == "" { //if entryId is null then treat as an add
+		entryId = getNextEntryId()
+	}
+
+	// marshall data to JSON
+	// write file
+	// redirect to entry view page
+
+}
+
+func getNextEntryId() string {
+	return "10"
+}
+
+func loadEntry(id string) (*models.Entry, error) {
+	filename := "./data/entries/" + id + ".json"
+	data, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return nil, err
+	}
+	entry := new(models.Entry)
+
+	err = json.Unmarshal(data, entry)
+	if err != nil {
+		return nil, err
+	}
+
+	return entry, nil
 }
 
 func loadEntries() []models.Entry {

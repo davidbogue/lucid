@@ -12,6 +12,7 @@ func main() {
 	http.HandleFunc("/login/", controllers.LoginPageHandler)
 	http.HandleFunc("/loginform/", controllers.LoginFormHandler)
 	http.HandleFunc("/logout/", controllers.LogoutHandler)
+	http.HandleFunc("/entry/", controllers.EntryHandler)
 
 	// static files
 	http.Handle("/web/", http.StripPrefix("/web/", http.FileServer(http.Dir("./web/"))))

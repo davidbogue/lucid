@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/sessions"
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 var SessionStore = sessions.NewCookieStore([]byte("d8e2f09c-6e37-44a8-a3ec-7a5608b54383"))
@@ -33,6 +34,11 @@ func EditProfileHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func SaveProfileHandler(w http.ResponseWriter, r *http.Request) {
+	if profileExists() && !isLoggedIn(r) { // the profile exists so we need to make sure the user is logged in.
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
+
 	err := r.ParseForm()
 	if err != nil {
 		http.Error(w, err.Error(), 500)
@@ -62,6 +68,11 @@ func SaveProfileHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.Redirect(w, r, "/", http.StatusFound)
+}
+
+func profileExists() bool {
+	_, err := os.Stat("./data/profile.json")
+	return !os.IsNotExist(err)
 }
 
 func loadProfile() (*models.Profile, error) {
