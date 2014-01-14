@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"github.com/davidbogue/lucid/models"
+	"github.com/gorilla/schema"
 	"github.com/russross/blackfriday"
 	"html/template"
 	"io/ioutil"
@@ -24,14 +25,58 @@ func EditEntryHandler(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/", http.StatusFound)
 		return
 	}
-	entryId := r.URL.Path[len("/entry/"):]
-	if entryId == "" { //if entryId is null then treat as an add
-		entryId = getNextEntryId()
+
+	e := new(models.Entry)
+	entryId := r.URL.Path[len("/editentry/"):]
+	if entryId != "" {
+		var err error
+		e, err = loadEntry(entryId)
+		if err != nil {
+			http.Redirect(w, r, "/", http.StatusFound)
+			return
+		}
+	}
+	renderTemplate(w, "editentry", e)
+
+}
+
+func SaveEntryHandler(w http.ResponseWriter, r *http.Request) {
+	if !isLoggedIn(r) {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
 	}
 
-	// marshall data to JSON
-	// write file
-	// redirect to entry view page
+	err := r.ParseForm()
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	entry := new(models.Entry)
+	decoder := schema.NewDecoder()
+	err = decoder.Decode(entry, r.PostForm)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	if entry.ID == "" {
+		entry.ID = getNextEntryId()
+	}
+
+	entry.Body = template.HTML(blackfriday.MarkdownBasic([]byte(entry.Markdown)))
+	entryJson, err := json.Marshal(entry)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	err = ioutil.WriteFile("./data/entries/"+entry.ID+".json", entryJson, 0600)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+	http.Redirect(w, r, "/entry/"+entry.ID, http.StatusFound)
 
 }
 

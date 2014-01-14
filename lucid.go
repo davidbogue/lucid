@@ -13,6 +13,8 @@ func main() {
 	http.HandleFunc("/loginform/", controllers.LoginFormHandler)
 	http.HandleFunc("/logout/", controllers.LogoutHandler)
 	http.HandleFunc("/entry/", controllers.EntryHandler)
+	http.HandleFunc("/editentry/", controllers.EditEntryHandler)
+	http.HandleFunc("/saveentry/", controllers.SaveEntryHandler)
 
 	// static files
 	http.Handle("/web/", http.StripPrefix("/web/", http.FileServer(http.Dir("./web/"))))

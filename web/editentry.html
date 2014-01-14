@@ -1,0 +1,36 @@
+{{template "header"}}
+
+    <div class="container">
+      <form role="form" action="/saveentry/" method="POST" parsley-validate>
+        <input type="hidden" name="ID" id="ID" value="{{.ID}}"/>
+      <div class="page-header">
+          <div class="form-group">
+            <input type="text" class="form-control input-lg" id="Title" name="Title" placeholder="Title" value="{{.Title}}" required>
+          </div>
+        <div class="padding-left-small">
+          <a href="/" class="default-color">
+            <img src="/images/monkey.jpg" width="25px" class="img-circle"> David Bogue 
+          </a>
+        </div>
+      </div>
+
+      <div class="row padding-top-small">
+        <div class="col-md-12 padding-left-large">
+          <small class="padding-left-med">
+            Text can be edited using <a href="http://daringfireball.net/projects/markdown/">Markdown</a> with the following 
+            <a href="https://github.com/russross/blackfriday/blob/master/README.md#extensions"> extensions</a>.
+            </small>
+          <textarea class="form-control input-lg" rows="14" id="Markdown" name="Markdown" required>{{.Markdown}}</textarea>
+        </div>
+      </div>
+
+      <div class="row padding-top-large">
+        <hr>
+        <div class="col-md-11 text-right"> 
+          <button type="submit" class="btn btn-default">Save</button>
+        </div>
+      </div>
+    </form>
+    </div><!-- /.container -->
+
+{{template "footer"}}

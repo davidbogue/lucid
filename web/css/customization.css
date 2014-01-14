@@ -70,6 +70,10 @@ footer{
   padding-bottom: 300px;
 }
 
+.default-color{
+  color: #666666;
+}
+
 .dark-background{
   background: #cccccc;
   color: white;

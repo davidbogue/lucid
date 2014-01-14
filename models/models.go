@@ -23,9 +23,10 @@ type Profile struct {
 }
 
 type Entry struct {
-	ID    string
-	Title string
-	Body  template.HTML
+	ID       string
+	Title    string
+	Markdown string
+	Body     template.HTML
 }
 
 type Login struct {
