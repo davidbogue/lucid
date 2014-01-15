@@ -2,23 +2,31 @@
 
     <div class="container">
 
-      <div class="page-header">
+      <div class="row padding-top-small">
+        <div class="col-md-11 padding-left-large">
+          <div class="page-header">
         <h1>{{.Title}}</h1>
         <div class="padding-left-small">
-          <img src="/images/monkey.jpg" width="25px" class="img-circle"> David Bogue 
-
+          <a href="/" class="default-color">
+            <img src="/images/monkey.jpg" width="25px" class="img-circle"> David Bogue 
+          </a>
+        </div>
+      </div>
         </div>
       </div>
 
+      
+
       <div class="row padding-top-small">
-        <div class="col-md-10 padding-left-large">
+        <div class="col-md-11 padding-left-large">
           {{.Body}}
         </div>
       </div>
 
       <div class="row padding-top-large">
-        <hr>
-        <div class="col-md-10 text-right"> 
+        
+        <div class="col-md-11 text-right"> 
+          <hr>
           <button type="button" class="btn btn-primary">
             Next <span class="glyphicon glyphicon-chevron-right"></span>
           </button>

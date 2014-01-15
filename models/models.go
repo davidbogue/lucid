@@ -6,7 +6,7 @@ import (
 
 type HomePage struct {
 	Profile   *Profile
-	Entries   []Entry
+	Entries   []*Entry
 	MorePosts bool
 	LoggedIn  bool
 }

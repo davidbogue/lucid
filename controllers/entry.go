@@ -8,6 +8,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 func EntryHandler(w http.ResponseWriter, r *http.Request) {
@@ -81,7 +82,8 @@ func SaveEntryHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func getNextEntryId() string {
-	return "10"
+	t := time.Now()
+	return t.Format("20060102150405")
 }
 
 func loadEntry(id string) (*models.Entry, error) {
@@ -100,14 +102,32 @@ func loadEntry(id string) (*models.Entry, error) {
 	return entry, nil
 }
 
-func loadEntries() []models.Entry {
-	entries := make([]models.Entry, 4)
-	testBody := "When we look at social software services like Facebook and Twitter, we are really talking about systems who’s whole purpose is to get us to form narratives through them. We form these narratives by stringing together syntagms (fragments of text) into sequential interwoven dialogs that together form stories/narratives amongst others.\n\nThe feeds and reverse chronological way these are presented is the easiest distillation of what we contribute. We are story tellers through the medium..."
-	output := blackfriday.MarkdownBasic([]byte(testBody))
+func loadEntries(page int) []*models.Entry {
+	files, _ := ioutil.ReadDir("./data/entries/")
 
-	entries[0] = models.Entry{ID: "10", Title: "This is a blog post", Body: template.HTML(output)}
-	entries[1] = models.Entry{ID: "10", Title: "This is a blog post", Body: template.HTML(output)}
-	entries[2] = models.Entry{ID: "10", Title: "This is a blog post", Body: template.HTML(output)}
-	entries[3] = models.Entry{ID: "10", Title: "This is a blog post", Body: template.HTML(output)}
+	endRange := page * 4
+	if endRange > len(files) {
+		endRange = len(files)
+	}
+	startRange := endRange - 4
+	if startRange < 0 {
+		startRange = 0
+	}
+
+	filePage := files[startRange:endRange]
+
+	entries := make([]*models.Entry, len(filePage))
+
+	// testBody := "When we look at social software services like Facebook and Twitter, we are really talking about systems who’s whole purpose is to get us to form narratives through them. We form these narratives by stringing together syntagms (fragments of text) into sequential interwoven dialogs that together form stories/narratives amongst others.\n\nThe feeds and reverse chronological way these are presented is the easiest distillation of what we contribute. We are story tellers through the medium..."
+	// output := blackfriday.MarkdownBasic([]byte(testBody))
+
+	for i, f := range filePage {
+		entryId := f.Name()[0 : len(f.Name())-5]
+		entry, err := loadEntry(entryId)
+		if err == nil {
+			entries[i] = entry
+		}
+	}
+
 	return entries
 }

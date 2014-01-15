@@ -14,6 +14,6 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/editprofile/", http.StatusFound)
 		return
 	}
-	homePage := &models.HomePage{Profile: p, Entries: loadEntries(), LoggedIn: isLoggedIn(r)}
+	homePage := &models.HomePage{Profile: p, Entries: loadEntries(1), LoggedIn: isLoggedIn(r)}
 	renderTemplate(w, "index", homePage)
 }
