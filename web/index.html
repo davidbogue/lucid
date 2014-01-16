@@ -58,7 +58,9 @@
         <div class="row padding-top-large">
           <div class="col-md-2"> </div>
           <div class="col-md-8">
-            <h3>{{$entry.Title}}</h3>
+            <a href="/entry/{{$entry.ID}}">
+              <h2>{{$entry.Title}}</h2>
+            </a>
           </div>
         </div>
 
@@ -66,9 +68,9 @@
           <div class="col-md-2"> </div>
           <div class="col-md-8">
             {{$entry.Body}}
-            <button type="button" class="btn btn-default margin-top-med">
+            <a href="/entry/{{$entry.ID}}" class="btn btn-default margin-top-med">
               Continue Reading
-            </button>
+            </a>
             <p><hr></p>
           </div>
         </div>

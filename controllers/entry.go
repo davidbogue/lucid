@@ -8,6 +8,8 @@ import (
 	"html/template"
 	"io/ioutil"
 	"net/http"
+	"os"
+	"strings"
 	"time"
 )
 
@@ -102,8 +104,19 @@ func loadEntry(id string) (*models.Entry, error) {
 	return entry, nil
 }
 
+func summarizeEntry(body string) template.HTML {
+	if strings.Contains(body, "</p>") {
+		endRange := strings.Index(body, "</p>") + 4
+		return template.HTML(body[0:endRange])
+	} else {
+		return template.HTML(body[0:500])
+	}
+
+}
+
 func loadEntries(page int) []*models.Entry {
 	files, _ := ioutil.ReadDir("./data/entries/")
+	files = reverseFiles(files)
 
 	endRange := page * 4
 	if endRange > len(files) {
@@ -118,16 +131,23 @@ func loadEntries(page int) []*models.Entry {
 
 	entries := make([]*models.Entry, len(filePage))
 
-	// testBody := "When we look at social software services like Facebook and Twitter, we are really talking about systems who’s whole purpose is to get us to form narratives through them. We form these narratives by stringing together syntagms (fragments of text) into sequential interwoven dialogs that together form stories/narratives amongst others.\n\nThe feeds and reverse chronological way these are presented is the easiest distillation of what we contribute. We are story tellers through the medium..."
-	// output := blackfriday.MarkdownBasic([]byte(testBody))
-
 	for i, f := range filePage {
 		entryId := f.Name()[0 : len(f.Name())-5]
 		entry, err := loadEntry(entryId)
+		entry.Body = summarizeEntry(string(entry.Body))
 		if err == nil {
 			entries[i] = entry
 		}
 	}
 
 	return entries
+}
+
+func reverseFiles(files []os.FileInfo) []os.FileInfo {
+	length := len(files)
+	reverseFiles := make([]os.FileInfo, length)
+	for i, f := range files {
+		reverseFiles[length-(i+1)] = f
+	}
+	return reverseFiles
 }
