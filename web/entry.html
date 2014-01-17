@@ -1,25 +1,30 @@
 {{template "header"}}
-
+  {{if .LoggedIn}}
+    <div class="pull-right dark-background margin-top-large">
+      <a href="/logout"><i class="fa fa-sign-out padding-even-med"></i></a>
+    </div>
+  {{end}}
+  
     <div class="container">
-
       <div class="row padding-top-small">
         <div class="col-md-11 padding-left-large">
           <div class="page-header">
-        <h1>{{.Title}}</h1>
-        <div class="padding-left-small">
-          <a href="/" class="default-color">
-            <img src="/images/monkey.jpg" width="25px" class="img-circle"> David Bogue 
-          </a>
+            {{if .LoggedIn}}
+              <a href="/editentry/{{.Entry.ID}}"> <span class="badge pull-right">edit entry</span> </a>
+            {{end}}
+            <h1>{{.Entry.Title}}</h1>
+            <div class="padding-left-small">
+              <a href="/" class="default-color">
+                <img src="/images/monkey.jpg" width="25px" class="img-circle"> <small>{{.Profile.Name}}</small>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-        </div>
-      </div>
-
-      
 
       <div class="row padding-top-small">
         <div class="col-md-11 padding-left-large">
-          {{.Body}}
+          {{.Entry.Body}}
         </div>
       </div>
 

@@ -1,15 +1,18 @@
 {{template "header"}}
+  <div class="pull-right dark-background margin-top-large">
+      <a href="/logout"><i class="fa fa-sign-out padding-even-med"></i></a>
+  </div>
 
     <div class="container">
       <form role="form" action="/saveentry/" method="POST" parsley-validate>
-        <input type="hidden" name="ID" id="ID" value="{{.ID}}"/>
+        <input type="hidden" name="ID" id="ID" value="{{.Entry.ID}}"/>
       <div class="page-header">
           <div class="form-group">
-            <input type="text" class="form-control input-lg" id="Title" name="Title" placeholder="Title" value="{{.Title}}" required>
+            <input type="text" class="form-control input-lg" id="Title" name="Title" placeholder="Title" value="{{.Entry.Title}}" required>
           </div>
         <div class="padding-left-small">
           <a href="/" class="default-color">
-            <img src="/images/monkey.jpg" width="25px" class="img-circle"> David Bogue 
+            <img src="/images/monkey.jpg" width="25px" class="img-circle"> <small>{{.Profile.Name}}</small>
           </a>
         </div>
       </div>
@@ -20,7 +23,7 @@
             Text can be edited using <a href="http://daringfireball.net/projects/markdown/">Markdown</a> with the following 
             <a href="https://github.com/russross/blackfriday/blob/master/README.md#extensions"> extensions</a>.
             </small>
-          <textarea class="form-control input-lg" rows="14" id="Markdown" name="Markdown" required>{{.Markdown}}</textarea>
+          <textarea class="form-control input-lg" rows="14" id="Markdown" name="Markdown" required>{{.Entry.Markdown}}</textarea>
         </div>
       </div>
 

@@ -19,7 +19,9 @@ func EntryHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Redirect(w, r, "/", http.StatusFound)
 	} else {
-		renderTemplate(w, "entry", e)
+		p, _ := loadProfile()
+		entryPage := &models.EntryPage{Profile: p, Entry: e, LoggedIn: isLoggedIn(r)}
+		renderTemplate(w, "entry", entryPage)
 	}
 }
 
@@ -39,7 +41,9 @@ func EditEntryHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	renderTemplate(w, "editentry", e)
+	p, _ := loadProfile()
+	entryPage := &models.EntryPage{Profile: p, Entry: e}
+	renderTemplate(w, "editentry", entryPage)
 
 }
 
@@ -114,14 +118,16 @@ func summarizeEntry(body string) template.HTML {
 
 }
 
-func loadEntries(page int) []*models.Entry {
+func loadEntries(page int) ([]*models.Entry, bool) {
 	files, _ := ioutil.ReadDir("./data/entries/")
 	files = reverseFiles(files)
 
 	endRange := page * 4
 	if endRange > len(files) {
 		endRange = len(files)
+
 	}
+	morePages := endRange < len(files)
 	startRange := endRange - 4
 	if startRange < 0 {
 		startRange = 0
@@ -140,7 +146,7 @@ func loadEntries(page int) []*models.Entry {
 		}
 	}
 
-	return entries
+	return entries, morePages
 }
 
 func reverseFiles(files []os.FileInfo) []os.FileInfo {

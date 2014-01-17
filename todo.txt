@@ -1,7 +1,6 @@
 TODO:
 
-New Entry Form
-Edit Entry
-Get Entries Logic
-Next Button Logic
+Upload user profile image
+Next Button on Entry Page
 Reset Password
+Add pictures to entries

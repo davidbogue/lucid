@@ -1,6 +1,7 @@
 {{template "header"}}
+  {{ $loggedIn := .LoggedIn }}
   <div class="pull-right dark-background margin-top-large">
-    {{if .LoggedIn}}
+    {{if $loggedIn}}
       <a href="/logout"><i class="fa fa-sign-out padding-even-med"></i></a>
     {{else}}
       <a href="/login"><i class="fa fa-user padding-even-med"></i></a>
@@ -43,16 +44,16 @@
                 <a href="{{.Profile.Facebook}}"><i class="fa fa-facebook"></i> </a>
               {{end}}
 
-              
+              {{if $loggedIn}}
+                <a href="/editentry/" class="btn btn-default btn-sm pull-right"><i class="fa fa-plus-circle"></i> New Entry</a>
+              {{end}}
+
             </div>
 
           </div>
         </div>
 
       </div>
-      {{if .LoggedIn}}
-           <a href="/editentry/" class="btn btn-default btn-sm pull-right"><i class="fa fa-plus-circle"></i> New Entry</a>
-      {{end}}
 
       {{range $entry := .Entries}}
         <div class="row padding-top-large">
@@ -80,9 +81,11 @@
       <div class="row padding-top-large">
         <div class="col-md-2"> </div>
         <div class="col-md-8 text-right">
-          <button type="button" class="btn btn-primary">
+          {{if .MorePosts}}
+          <a href="/{{.NextPage}}" class="btn btn-primary">
             Next <span class="glyphicon glyphicon-chevron-right"></span>
-          </button>
+          </a>
+          {{end}}
         </div>
       </div>
 
