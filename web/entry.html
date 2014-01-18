@@ -4,7 +4,7 @@
       <a href="/logout"><i class="fa fa-sign-out padding-even-med"></i></a>
     </div>
   {{end}}
-  
+
     <div class="container">
       <div class="row padding-top-small">
         <div class="col-md-11 padding-left-large">
@@ -28,15 +28,17 @@
         </div>
       </div>
 
+      {{if .NextEntryId}}
       <div class="row padding-top-large">
         
         <div class="col-md-11 text-right"> 
           <hr>
-          <button type="button" class="btn btn-primary">
+          <a href="/entry/{{.NextEntryId}}" type="button" class="btn btn-primary">
             Next <span class="glyphicon glyphicon-chevron-right"></span>
-          </button>
+          </a>
         </div>
       </div>
+      {{end}}
 
     </div><!-- /.container -->
 

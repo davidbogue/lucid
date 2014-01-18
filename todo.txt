@@ -1,6 +1,7 @@
 TODO:
 
 Upload user profile image
-Next Button on Entry Page
+constants
+properties file
 Reset Password
 Add pictures to entries

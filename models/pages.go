@@ -9,9 +9,10 @@ type HomePage struct {
 }
 
 type EntryPage struct {
-	Profile  *Profile
-	Entry    *Entry
-	LoggedIn bool
+	Profile     *Profile
+	Entry       *Entry
+	NextEntryId string
+	LoggedIn    bool
 }
 
 type Login struct {
