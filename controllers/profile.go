@@ -43,6 +43,7 @@ func SaveProfileHandler(w http.ResponseWriter, r *http.Request) {
 
 	// validate profile and return errors to edit screen here
 	profile.Password = getMD5HashWithSalt(profile.Password)
+
 	b, err := json.Marshal(profile)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
@@ -75,5 +76,8 @@ func loadProfile() (*models.Profile, error) {
 		return nil, err
 	}
 
+	if profile.Picture == "" {
+		profile.Picture = "default.png"
+	}
 	return profile, nil
 }

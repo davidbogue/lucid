@@ -9,4 +9,5 @@ type Profile struct {
 	LinkedIn string
 	Twitter  string
 	Facebook string
+	Picture  string
 }
