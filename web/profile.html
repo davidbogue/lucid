@@ -65,7 +65,7 @@
       <div class="modal fade" id="profilePicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <form action="/updateprofilepic/" method="POST">
+            <form action="/updateprofilepic/" method="POST" enctype="multipart/form-data" parsley-validate>
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Profile Photo</h4>
@@ -73,7 +73,7 @@
               <div class="modal-body">
                 
                   <div class="form-group">
-                    <input type="file" id="inputPicture">
+                    <input type="file" id="profilepic" name="profilepic" accept="image/jpg,image/png" required>
                   </div>
                 
               </div>

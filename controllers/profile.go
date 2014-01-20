@@ -4,9 +4,16 @@ import (
 	"encoding/json"
 	"github.com/davidbogue/lucid/models"
 	"github.com/gorilla/schema"
+	"github.com/nfnt/resize"
+	"image"
+	"image/jpeg"
+	"image/png"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"os"
+	"path/filepath"
+	"strings"
 )
 
 func EditProfileHandler(w http.ResponseWriter, r *http.Request) {
@@ -58,6 +65,91 @@ func SaveProfileHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 
+func UpdateProfilePicHandler(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseMultipartForm(100000)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	m := r.MultipartForm
+	files := m.File["profilepic"]
+	if len(files) > 0 {
+		picFile, err := files[0].Open()
+		defer picFile.Close()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		var extension = filepath.Ext(files[0].Filename)
+		if strings.ToLower(extension) == ".jpeg" {
+			extension = ".jpg"
+		}
+
+		//create destination file making sure the path is writeable.
+		dst, err := os.Create("./web/images/profile" + extension)
+		defer dst.Close()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		//copy the uploaded file to the destination file
+		if _, err := io.Copy(dst, picFile); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		picFile.Close()
+		err = resizeImage(extension)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// delete any old profile pics
+		if extension == ".jpg" {
+			os.Remove("./web/images/profile.png")
+		}
+	}
+	http.Redirect(w, r, "/editprofile", http.StatusFound)
+}
+
+func resizeImage(ext string) error {
+	file, err := os.Open("./web/images/profile" + ext)
+	if err != nil {
+		return err
+	}
+	var img image.Image
+	if strings.ToLower(ext) == ".jpg" {
+		img, err = jpeg.Decode(file)
+		if err != nil {
+			file.Close()
+			return err
+		}
+	}
+	if strings.ToLower(ext) == ".png" {
+		img, err = png.Decode(file)
+		if err != nil {
+			file.Close()
+			return err
+		}
+	}
+
+	file.Close()
+
+	// resize to width 100 using Lanczos resampling
+	m := resize.Resize(100, 100, img, resize.Lanczos3)
+
+	out, err := os.Create("./web/images/profile" + ext)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+
+	// write new image to file
+	jpeg.Encode(out, m, nil)
+	return nil
+}
+
 func profileExists() bool {
 	_, err := os.Stat("./data/profile.json")
 	return !os.IsNotExist(err)
@@ -76,8 +168,20 @@ func loadProfile() (*models.Profile, error) {
 		return nil, err
 	}
 
-	if profile.Picture == "" {
-		profile.Picture = "default.png"
-	}
+	setProfilePic(profile)
+
 	return profile, nil
+}
+
+func setProfilePic(profile *models.Profile) {
+	if _, err := os.Stat("./web/images/profile.png"); err == nil {
+		profile.Picture = "profile.png"
+		return
+	}
+	if _, err := os.Stat("./web/images/profile.jpg"); err == nil {
+		profile.Picture = "profile.jpg"
+		return
+	}
+	profile.Picture = "default.png"
+
 }

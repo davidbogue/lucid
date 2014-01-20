@@ -15,6 +15,7 @@ func main() {
 	http.HandleFunc("/entry/", controllers.EntryHandler)
 	http.HandleFunc("/editentry/", controllers.EditEntryHandler)
 	http.HandleFunc("/saveentry/", controllers.SaveEntryHandler)
+	http.HandleFunc("/updateprofilepic/", controllers.UpdateProfilePicHandler)
 
 	// static files
 	http.Handle("/web/", http.StripPrefix("/web/", http.FileServer(http.Dir("./web/"))))
