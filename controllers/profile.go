@@ -136,8 +136,8 @@ func resizeImage(ext string) error {
 
 	file.Close()
 
-	// resize to width 100 using Lanczos resampling
-	m := resize.Resize(100, 100, img, resize.Lanczos3)
+	// resize to width 100 using bilinear resampling
+	m := resize.Resize(100, 100, img, resize.Bilinear)
 
 	out, err := os.Create("./web/images/profile" + ext)
 	if err != nil {
@@ -158,10 +158,11 @@ func profileExists() bool {
 func loadProfile() (*models.Profile, error) {
 	filename := "./data/profile.json"
 	data, err := ioutil.ReadFile(filename)
-	if err != nil {
-		return nil, err
-	}
 	profile := new(models.Profile)
+	if err != nil {
+		setProfilePic(profile)
+		return profile, err
+	}
 
 	err = json.Unmarshal(data, profile)
 	if err != nil {
