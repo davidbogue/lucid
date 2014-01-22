@@ -14,6 +14,7 @@ var templates = template.Must(template.ParseFiles(
 	"./web/login.html",
 	"./web/entry.html",
 	"./web/editentry.html",
+	"./web/resetpassword.html",
 	"./web/profile.html"))
 
 func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {

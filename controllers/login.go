@@ -54,6 +54,14 @@ func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 
+func ResetPasswordHandler(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w, "resetpassword", nil)
+}
+
+func ResetPasswordFormHandler(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w, "resetpassword", nil)
+}
+
 func getMD5HashWithSalt(text string) string {
 	hasher := md5.New()
 	hasher.Write([]byte(text + "lucid"))

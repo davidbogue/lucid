@@ -32,6 +32,8 @@ a:focus {
 
 .media-heading { margin: 0 0 10px; }
 
+.small{ font-size: 70% }
+
 @media (min-width: 768px) { .container {  width: 750px; } }
 @media (min-width: 992px) { .container {  width: 850px;  } }
 @media (min-width: 1200px) {  .container {  width: 850px;  } }

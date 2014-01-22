@@ -12,6 +12,8 @@ func main() {
 	http.HandleFunc("/login/", controllers.LoginPageHandler)
 	http.HandleFunc("/loginform/", controllers.LoginFormHandler)
 	http.HandleFunc("/logout/", controllers.LogoutHandler)
+	http.HandleFunc("/resetpassword/", controllers.ResetPasswordHandler)
+	http.HandleFunc("/resetpasswordform/", controllers.ResetPasswordFormHandler)
 	http.HandleFunc("/entry/", controllers.EntryHandler)
 	http.HandleFunc("/editentry/", controllers.EditEntryHandler)
 	http.HandleFunc("/saveentry/", controllers.SaveEntryHandler)
