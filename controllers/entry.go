@@ -122,8 +122,7 @@ func summarizeEntry(body string) template.HTML {
 }
 
 func loadEntries(page int) ([]*models.Entry, bool) {
-	files, _ := ioutil.ReadDir("./data/entries/")
-	files = reverseFiles(files)
+	files := getEntryFiles()
 
 	endRange := page * 4
 	if endRange > len(files) {
@@ -153,8 +152,7 @@ func loadEntries(page int) ([]*models.Entry, bool) {
 }
 
 func nextEntryId(entryId string) string {
-	files, _ := ioutil.ReadDir("./data/entries/")
-	files = reverseFiles(files)
+	files := getEntryFiles()
 	for i, f := range files {
 		fileEntryId := f.Name()[0 : len(f.Name())-5]
 		if fileEntryId == entryId {
@@ -167,10 +165,17 @@ func nextEntryId(entryId string) string {
 	return ""
 }
 
+func getEntryFiles() []os.FileInfo {
+	files, _ := ioutil.ReadDir("./data/entries/")
+	files = files[1:len(files)] // remove .gitignore file
+	return reverseFiles(files)
+}
+
 func reverseFiles(files []os.FileInfo) []os.FileInfo {
 	length := len(files)
 	reverseFiles := make([]os.FileInfo, length)
 	for i, f := range files {
+
 		reverseFiles[length-(i+1)] = f
 	}
 	return reverseFiles
