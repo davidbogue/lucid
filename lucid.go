@@ -9,15 +9,18 @@ func main() {
 	http.HandleFunc("/", controllers.HomePageHandler)
 	http.HandleFunc("/editprofile/", controllers.EditProfileHandler)
 	http.HandleFunc("/saveprofile/", controllers.SaveProfileHandler)
+	http.HandleFunc("/updateprofilepic/", controllers.UpdateProfilePicHandler)
+
 	http.HandleFunc("/login/", controllers.LoginPageHandler)
 	http.HandleFunc("/loginform/", controllers.LoginFormHandler)
 	http.HandleFunc("/logout/", controllers.LogoutHandler)
 	http.HandleFunc("/resetpassword/", controllers.ResetPasswordHandler)
 	http.HandleFunc("/resetpasswordform/", controllers.ResetPasswordFormHandler)
+
 	http.HandleFunc("/entry/", controllers.EntryHandler)
 	http.HandleFunc("/editentry/", controllers.EditEntryHandler)
 	http.HandleFunc("/saveentry/", controllers.SaveEntryHandler)
-	http.HandleFunc("/updateprofilepic/", controllers.UpdateProfilePicHandler)
+	http.HandleFunc("/deleteentry/", controllers.DeleteEntryHandler)
 
 	// static files
 	http.Handle("/web/", http.StripPrefix("/web/", http.FileServer(http.Dir("./web/"))))

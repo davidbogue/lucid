@@ -90,6 +90,19 @@ func SaveEntryHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func DeleteEntryHandler(w http.ResponseWriter, r *http.Request) {
+	if !isLoggedIn(r) {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
+
+	id := r.URL.Path[len("/deleteentry/"):]
+	if id != "" {
+		os.Remove("./data/entries/" + id + ".json")
+	}
+	http.Redirect(w, r, "/", http.StatusFound)
+}
+
 func getNextEntryId() string {
 	t := time.Now()
 	return t.Format("20060102150405")
