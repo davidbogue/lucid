@@ -3,6 +3,7 @@ package controllers
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"github.com/davidbogue/lucid/config"
 	"github.com/davidbogue/lucid/models"
 	"github.com/gorilla/schema"
 	"net/http"
@@ -64,6 +65,6 @@ func ResetPasswordFormHandler(w http.ResponseWriter, r *http.Request) {
 
 func getMD5HashWithSalt(text string) string {
 	hasher := md5.New()
-	hasher.Write([]byte(text + "lucid"))
+	hasher.Write([]byte(text + config.Value("password_salt")))
 	return hex.EncodeToString(hasher.Sum(nil))
 }

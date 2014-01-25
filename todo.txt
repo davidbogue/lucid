@@ -1,6 +1,5 @@
 TODO:
 
-Upload user profile image
 constants
 properties file
 Reset Password

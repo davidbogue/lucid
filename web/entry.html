@@ -14,7 +14,7 @@
               {{if .LoggedIn}}
                   <small>
                     <a href="/editentry/{{.Entry.ID}}"> 
-                      <span class="glyphicon glyphicon-pencil margin-left-small"></span> 
+                      <span class="glyphicon glyphicon-edit margin-left-small"></span> 
                     </a>
                     <a href="#deleteModal" data-toggle="modal"> 
                       <span class="glyphicon glyphicon-remove-circle text-danger margin-left-small"></span> 
@@ -69,7 +69,7 @@
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
       {{end}}
-      
+
     </div><!-- /.container -->
 
 {{template "footer"}}
