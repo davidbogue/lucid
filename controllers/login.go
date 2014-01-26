@@ -9,6 +9,8 @@ import (
 	"math/rand"
 	"net/http"
 	"net/smtp"
+	"strconv"
+	"time"
 )
 
 func LoginPageHandler(w http.ResponseWriter, r *http.Request) {
@@ -123,7 +125,9 @@ func sendResetPasswordEmail(profile *models.Profile) error {
 }
 
 func generateRandomPassword() string {
-	randomNumber := string(rand.Int())
+	seed := time.Now().Unix()
+	rand.Seed(seed)
+	randomNumber := strconv.Itoa(rand.Intn(100000))
 	hasher := md5.New()
 	hasher.Write([]byte(randomNumber))
 	return hex.EncodeToString(hasher.Sum(nil))[0:8]
