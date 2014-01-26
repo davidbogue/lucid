@@ -50,18 +50,12 @@ func SaveProfileHandler(w http.ResponseWriter, r *http.Request) {
 
 	// validate profile and return errors to edit screen here
 	profile.Password = getMD5HashWithSalt(profile.Password)
-
-	b, err := json.Marshal(profile)
+	err = writeProfile(profile)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
 	}
 
-	err = ioutil.WriteFile("./data/profile.json", b, 0600)
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 
@@ -113,6 +107,51 @@ func UpdateProfilePicHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/editprofile", http.StatusFound)
 }
 
+func profileExists() bool {
+	_, err := os.Stat("./data/profile.json")
+	return !os.IsNotExist(err)
+}
+
+func loadProfile() (*models.Profile, error) {
+	filename := "./data/profile.json"
+	data, err := ioutil.ReadFile(filename)
+	profile := new(models.Profile)
+	if err != nil {
+		setProfilePic(profile)
+		return profile, err
+	}
+
+	err = json.Unmarshal(data, profile)
+	if err != nil {
+		return nil, err
+	}
+
+	setProfilePic(profile)
+
+	return profile, nil
+}
+
+func writeProfile(profile *models.Profile) error {
+	b, err := json.Marshal(profile)
+	if err != nil {
+		return err
+	}
+	return ioutil.WriteFile("./data/profile.json", b, 0600)
+}
+
+func setProfilePic(profile *models.Profile) {
+	if _, err := os.Stat("./web/images/profile.png"); err == nil {
+		profile.Picture = "profile.png"
+		return
+	}
+	if _, err := os.Stat("./web/images/profile.jpg"); err == nil {
+		profile.Picture = "profile.jpg"
+		return
+	}
+	profile.Picture = "default.png"
+
+}
+
 func resizeImage(ext string) error {
 	file, err := os.Open("./web/images/profile" + ext)
 	if err != nil {
@@ -148,41 +187,4 @@ func resizeImage(ext string) error {
 	// write new image to file
 	jpeg.Encode(out, m, nil)
 	return nil
-}
-
-func profileExists() bool {
-	_, err := os.Stat("./data/profile.json")
-	return !os.IsNotExist(err)
-}
-
-func loadProfile() (*models.Profile, error) {
-	filename := "./data/profile.json"
-	data, err := ioutil.ReadFile(filename)
-	profile := new(models.Profile)
-	if err != nil {
-		setProfilePic(profile)
-		return profile, err
-	}
-
-	err = json.Unmarshal(data, profile)
-	if err != nil {
-		return nil, err
-	}
-
-	setProfilePic(profile)
-
-	return profile, nil
-}
-
-func setProfilePic(profile *models.Profile) {
-	if _, err := os.Stat("./web/images/profile.png"); err == nil {
-		profile.Picture = "profile.png"
-		return
-	}
-	if _, err := os.Stat("./web/images/profile.jpg"); err == nil {
-		profile.Picture = "profile.jpg"
-		return
-	}
-	profile.Picture = "default.png"
-
 }

@@ -15,6 +15,11 @@ type EntryPage struct {
 	LoggedIn    bool
 }
 
+type MessagePage struct {
+	Profile *Profile
+	Message string
+}
+
 type Login struct {
 	Email    string
 	Password string

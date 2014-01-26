@@ -1,6 +1,5 @@
 TODO:
 
-constants
-properties file
 Reset Password
 Add pictures to entries
+constants

@@ -1,0 +1,51 @@
+{{template "header"}}
+<div class="container">
+
+	<div class="page-header">
+        <div class="media">
+          <a class="pull-left" href="/">
+            <img src="/images/{{.Profile.Picture}}" width="100px" class="img-circle">
+          </a>
+          <div class="media-body padding-top-sm padding-left-large">
+            <h1 class="media-heading">
+              {{.Profile.Name}}
+            </h1>
+            <p>
+              {{.Profile.TagLine}}
+
+            </p>
+            <div class="padding-left-small">
+              {{if .Profile.GitHub}}
+                <a href="{{.Profile.GitHub}}"><i class="fa fa-github"></i> </a>
+              {{end}}
+
+              {{if .Profile.LinkedIn}}
+                <a href="{{.Profile.LinkedIn}}"><i class="fa fa-linkedin"></i> </a>
+              {{end}}
+
+              {{if .Profile.Twitter}}
+                <a href="{{.Profile.Twitter}}"><i class="fa fa-twitter"></i> </a>
+              {{end}}
+              
+              {{if .Profile.Facebook}}
+                <a href="{{.Profile.Facebook}}"><i class="fa fa-facebook"></i> </a>
+              {{end}}
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row padding-top-large">
+        <div class="col-md-2"> </div>
+        <div class="col-md-8">
+          <div class="alert alert-success margin-top-large">
+	        {{.Message}}
+	      </div>
+        </div>
+      </div>
+
+</div><!-- /.container -->
+{{template "footer"}}
