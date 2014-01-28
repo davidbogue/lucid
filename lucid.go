@@ -30,5 +30,5 @@ func main() {
 	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("./web/js/"))))
 	http.Handle("/fonts/", http.StripPrefix("/fonts/", http.FileServer(http.Dir("./web/fonts/"))))
 
-	http.ListenAndServe(config.Value("server_ip")+":8080", nil)
+	http.ListenAndServe(config.Value("server_ip")+":"+config.Value("server_port"), nil)
 }
