@@ -9,52 +9,57 @@
     
   </div>
 
-    <div class="container">
+  <div class="jumbotron">
+      <div class="container">
+          <div class="page-header">
+            <div class="media">
+              <a class="pull-left" href="/">
+                <img src="/images/{{.Profile.Picture}}" width="120px" class="img-circle margin-top-med">
+              </a>
+              <div class="media-body padding-top-sm padding-left-large">
+                <h1 class="media-heading">
+                  {{.Profile.Name}}
+                  {{if .LoggedIn}}
+                    <a href="/editprofile"> <span class="badge">edit profile</span> </a>
+                  {{end}}
+                </h1>
+                <p>
+                  {{.Profile.TagLine}}
 
-      <div class="page-header">
-        <div class="media">
-          <a class="pull-left" href="/">
-            <img src="/images/{{.Profile.Picture}}" width="100px" class="img-circle">
-          </a>
-          <div class="media-body padding-top-sm padding-left-large">
-            <h1 class="media-heading">
-              {{.Profile.Name}}
-              {{if .LoggedIn}}
-                <a href="/editprofile"> <span class="badge">edit profile</span> </a>
-              {{end}}
-            </h1>
-            <p>
-              {{.Profile.TagLine}}
+                </p>
+                <div class="padding-left-small">
+                  {{if .Profile.GitHub}}
+                    <a href="{{.Profile.GitHub}}"><i class="fa fa-github"></i> </a>
+                  {{end}}
 
-            </p>
-            <div class="padding-left-small">
-              {{if .Profile.GitHub}}
-                <a href="{{.Profile.GitHub}}"><i class="fa fa-github"></i> </a>
-              {{end}}
+                  {{if .Profile.LinkedIn}}
+                    <a href="{{.Profile.LinkedIn}}"><i class="fa fa-linkedin"></i> </a>
+                  {{end}}
 
-              {{if .Profile.LinkedIn}}
-                <a href="{{.Profile.LinkedIn}}"><i class="fa fa-linkedin"></i> </a>
-              {{end}}
+                  {{if .Profile.Twitter}}
+                    <a href="{{.Profile.Twitter}}"><i class="fa fa-twitter"></i> </a>
+                  {{end}}
+                  
+                  {{if .Profile.Facebook}}
+                    <a href="{{.Profile.Facebook}}"><i class="fa fa-facebook"></i> </a>
+                  {{end}}
 
-              {{if .Profile.Twitter}}
-                <a href="{{.Profile.Twitter}}"><i class="fa fa-twitter"></i> </a>
-              {{end}}
-              
-              {{if .Profile.Facebook}}
-                <a href="{{.Profile.Facebook}}"><i class="fa fa-facebook"></i> </a>
-              {{end}}
+                  
 
-              {{if $loggedIn}}
-                <a href="/editentry/" class="btn btn-default btn-sm pull-right"><i class="fa fa-plus-circle"></i> New Entry</a>
-              {{end}}
+                </div>
 
+              </div>
             </div>
 
           </div>
-        </div>
-
       </div>
+    </div>
 
+    <div class="container">
+      {{if $loggedIn}}
+        <a href="/editentry/" class="btn btn-default btn-sm pull-right"><i class="fa fa-plus-circle"></i> New Entry</a>
+      {{end}}
+      
       {{range $entry := .Entries}}
         <div class="row padding-top-large">
           <div class="col-md-2"> </div>

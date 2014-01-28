@@ -176,7 +176,7 @@ func resizeImage(ext string) error {
 	file.Close()
 
 	// resize to width 100 using bilinear resampling
-	m := resize.Resize(100, 100, img, resize.Bilinear)
+	m := resize.Resize(150, 0, img, resize.Bilinear)
 
 	out, err := os.Create("./web/images/profile" + ext)
 	if err != nil {
