@@ -33,6 +33,10 @@ h2,
   font-size: 40px
 }
 
+p {
+margin: 0 0 20px;
+}
+
 a:hover,
 a:focus {
   text-decoration: none;
@@ -43,9 +47,12 @@ a:focus {
   margin-bottom: 30px;
   font-size: 18px;
   font-weight: 200;
-  color: inherit;
+  color: #f5f5f5;
   background-color: #eeeeee;
+  background: url(http://subtlepatterns.com/patterns/carbon_fibre.png)
 }
+
+.jumbotron .page-header {border-bottom: 0px;}
 
 .media-heading { margin: 0 0 10px; }
 
@@ -56,7 +63,7 @@ a:focus {
 @media (min-width: 1200px) {  .container {  width: 850px;  } }
 
 .fa{ padding-right: 7px; }
-a .fa{ color: #666666;}
+a .fa{ color: #A3A3A3;}
 
 footer{
 	margin-left: -30px;
@@ -94,12 +101,16 @@ footer{
   padding-bottom: 300px;
 }
 
+.social-icons{
+  font-size: 25px;
+}
+
 .default-color{
   color: #666666;
 }
 
 .dark-background{
-  background: #cccccc;
+  background: #505050;
   color: white;
 }
 

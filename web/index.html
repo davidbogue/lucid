@@ -27,7 +27,7 @@
                   {{.Profile.TagLine}}
 
                 </p>
-                <div class="padding-left-small">
+                <div class="padding-left-small social-icons">
                   {{if .Profile.GitHub}}
                     <a href="{{.Profile.GitHub}}"><i class="fa fa-github"></i> </a>
                   {{end}}
@@ -59,7 +59,7 @@
       {{if $loggedIn}}
         <a href="/editentry/" class="btn btn-default btn-sm pull-right"><i class="fa fa-plus-circle"></i> New Entry</a>
       {{end}}
-      
+
       {{range $entry := .Entries}}
         <div class="row padding-top-large">
           <div class="col-md-2"> </div>
