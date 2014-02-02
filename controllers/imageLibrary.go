@@ -2,13 +2,18 @@ package controllers
 
 import (
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 )
 
 func ImageLibraryHandler(w http.ResponseWriter, r *http.Request) {
-
-	renderTemplate(w, "imagelibrary", nil)
+	files := getImageFiles()
+	imagePaths := make([]string, len(files))
+	for i, f := range files {
+		imagePaths[i] = "/images/library/" + f.Name()
+	}
+	renderTemplate(w, "imagelibrary", imagePaths)
 }
 
 func UploadImageHandler(w http.ResponseWriter, r *http.Request) {
@@ -42,4 +47,10 @@ func UploadImageHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("/images/library/" + files[0].Filename))
 	}
 
+}
+
+func getImageFiles() []os.FileInfo {
+	files, _ := ioutil.ReadDir("./web/images/library")
+	files = files[1:len(files)] // remove .gitignore file
+	return files
 }

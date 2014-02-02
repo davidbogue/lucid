@@ -29,10 +29,10 @@
         <div class="pull-right margin-bottom-small">
           <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#uploadPhotoModal">
             <span class="glyphicon glyphicon-upload"></span> Add Image
-          </button> 
-          <button type="button" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-th"></span> Image Library
           </button>
+          <a data-target="#imageLibraryModal" href="/imagelibrary/" role="button" class="btn btn-default btn-sm" data-toggle="modal">
+            <span class="glyphicon glyphicon-th"></span> Image Library
+          </a> 
         </div>
 
         <textarea class="form-control input-lg" rows="17" id="Markdown" name="Markdown" required>{{.Entry.Markdown}}</textarea>
@@ -76,12 +76,30 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
+  <div class="modal fade bs-modal-lg" id="imageLibraryModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Upload Photo</h4>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div><!-- /.container -->
 
 {{template "footer"}}
 
 <script>
+function addImageToEntry(imagePath){
+  $('#imageLibraryModal').modal('hide')
+  $('#uploadPhotoModal').modal('hide')
+  $('#Markdown').insertAtCaret('\n <img src="'+imagePath+'" class="img-responsive"/>\n');
+}
 
 $(document).ready(function (e) {
   $('#imageUploadForm').on('submit',(function(e) {
@@ -89,20 +107,19 @@ $(document).ready(function (e) {
     var data = new FormData();
     data.append("photo", $('#photo')[0].files[0]);
     $.ajax({
-        type:'POST',
-        url: $(this).attr('action'),
-        data: data,
-        cache: false,
-        contentType: false,
-        processData: false
-      })
-      .done(function( data ) {
-        $('#uploadPhotoModal').modal('hide')
-        $('#Markdown').insertAtCaret('\n\n <img src="'+data+'" class="img-responsive"/>\n\n');
-      })
-      .fail(function(data) {
-        alert("There was an error uploading the image.")
-      });
+      type:'POST',
+      url: $(this).attr('action'),
+      data: data,
+      cache: false,
+      contentType: false,
+      processData: false
+    })
+    .done(function( data ) {
+      addImageToEntry(data)
+    })
+    .fail(function(data) {
+      alert("There was an error uploading the image.")
+    });
   }));
 
 });

@@ -1,69 +1,22 @@
-{{template "header"}}
-<div class="container">
+<div class="container margin-top-large">
 
-<div class="row">
-	<div class="col-sm-6 col-md-4">
-	  <div class="thumbnail">
-	    <img data-src="holder.js/300x200" alt="300x200" style="width: 200px;" src="/images/profile.jpg">
-	    <div class="caption">
-	      <h3>Thumbnail label</h3>
-	      <pre> &lt;img src="images/profile.jpg"/&gt;</pre>
-	    </div>
-	  </div>
+	<div class="row">
+		{{range $imagePath := .}}
+		<div class="col-md-3 col-sm-4 col-xs-6">
+			<div class="thumbnail">
+				<img class="img-responsive" src="{{$imagePath}}"/>
+				<div class="text-center margin-top-small">
+					<button class="btn btn-default" onclick="addImageToEntry('{{$imagePath}}')">Add to entry</button>
+				</div>
+			</div>
+		</div>
+		{{else}}
+		<div class="col-md-10 text-center">
+			<div class="thumbnail padding-even-large">
+				<h3>No available images</h3>
+			</div>
+		</div>
+		{{end}}
 	</div>
-
-	<div class="col-sm-6 col-md-4">
-	  <div class="thumbnail">
-	    <img data-src="holder.js/300x200" alt="300x200" style="width: 200px;" src="/images/profile.jpg">
-	    <div class="caption">
-	      <h3>Thumbnail label</h3>
-	      <pre> &lt;img src="images/profile.jpg"/&gt;</pre>
-	    </div>
-	  </div>
-	</div>
-
-	<div class="col-sm-6 col-md-4">
-	  <div class="thumbnail">
-	    <img data-src="holder.js/300x200" alt="300x200" style="width: 200px;" src="/images/profile.jpg">
-	    <div class="caption">
-	      <h3>Thumbnail label</h3>
-	      <pre> &lt;img src="images/profile.jpg"/&gt;</pre>
-	    </div>
-	  </div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-sm-6 col-md-4">
-	  <div class="thumbnail">
-	    <img data-src="holder.js/300x200" alt="300x200" style="width: 200px;" src="/images/profile.jpg">
-	    <div class="caption">
-	      <h3>Thumbnail label</h3>
-	      <pre> &lt;img src="images/profile.jpg"/&gt;</pre>
-	    </div>
-	  </div>
-	</div>
-
-	<div class="col-sm-6 col-md-4">
-	  <div class="thumbnail">
-	    <img data-src="holder.js/300x200" alt="300x200" style="width: 200px;" src="/images/profile.jpg">
-	    <div class="caption">
-	      <h3>Thumbnail label</h3>
-	      <pre> &lt;img src="images/profile.jpg"/&gt;</pre>
-	    </div>
-	  </div>
-	</div>
-
-	<div class="col-sm-6 col-md-4">
-	  <div class="thumbnail">
-	    <img data-src="holder.js/300x200" alt="300x200" style="width: 200px;" src="/images/profile.jpg">
-	    <div class="caption">
-	      <h3>Thumbnail label</h3>
-	      <pre> &lt;img src="images/profile.jpg"/&gt;</pre>
-	    </div>
-	  </div>
-	</div>
-</div>
 
 </div>
-{{template "footer"}}
