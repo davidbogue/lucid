@@ -23,6 +23,7 @@ func main() {
 	http.HandleFunc("/saveentry/", controllers.SaveEntryHandler)
 	http.HandleFunc("/deleteentry/", controllers.DeleteEntryHandler)
 	http.HandleFunc("/imagelibrary/", controllers.ImageLibraryHandler)
+	http.HandleFunc("/uploadimage/", controllers.UploadImageHandler)
 
 	// static files
 	http.Handle("/web/", http.StripPrefix("/web/", http.FileServer(http.Dir("./web/"))))

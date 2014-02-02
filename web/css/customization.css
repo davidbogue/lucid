@@ -43,7 +43,7 @@ a:focus {
 }
 
 .jumbotron {
-  padding: 25px;
+  padding: 25px 25px 20px 25px;
   margin-bottom: 30px;
   font-size: 18px;
   font-weight: 200;
@@ -87,6 +87,10 @@ footer{
 .padding-left-med{ padding-left: 10px; }
 .padding-left-large{ padding-left: 20px; }
 
+.padding-right-small{ padding-right: 5px; }
+.padding-right-med{ padding-right: 10px; }
+.padding-right-large{ padding-right: 20px; }
+
 .margin-top-small{ margin-top: 5px; }
 .margin-top-med{ margin-top: 10px; }
 .margin-top-large{ margin-top: 20px; }
@@ -94,6 +98,10 @@ footer{
 .margin-left-small{ margin-left: 5px; }
 .margin-left-med{ margin-left: 10px; }
 .margin-left-large{ margin-left: 20px; }
+
+.margin-bottom-small{ margin-bottom: 5px; }
+.margin-bottom-med{ margin-bottom: 10px; }
+.margin-bottom-large{ margin-bottom: 20px; }
 
 .login-div{
   width: 300px;
