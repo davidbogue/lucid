@@ -17,6 +17,10 @@ func ImageLibraryHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func UploadImageHandler(w http.ResponseWriter, r *http.Request) {
+	if !isLoggedIn(r) {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
 	err := r.ParseMultipartForm(100000)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
