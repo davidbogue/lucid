@@ -11,6 +11,7 @@ var sessionName = config.Value("session_name")
 var templates = template.Must(template.ParseFiles(
 	"./web/header.html",
 	"./web/footer.html",
+	"./web/analytics.html",
 	"./web/message.html",
 	"./web/index.html",
 	"./web/login.html",
@@ -22,9 +23,7 @@ var templates = template.Must(template.ParseFiles(
 
 func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 	err := templates.ExecuteTemplate(w, "header.html", nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	err = templates.ExecuteTemplate(w, "analytics.html", nil)
 	err = templates.ExecuteTemplate(w, "footer.html", nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
